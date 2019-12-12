@@ -1,5 +1,5 @@
 xi test @
-. Basic loop is 100 times faster compared to [python#]/[ruby]/[php] [#1].
+. Basic loop is 100 times faster compared to [python]/[csharp]/[php] [#1] [#3].
 
 Reference .
 . [1#] |http://habrahabr.ru/post/162885/#comment_5598039|.
@@ -91,7 +91,7 @@ Todo#[] .
     . Paragraph.
       h4 .
       h4 link[] .
-      h4 local link [#1] .
+      h4 local link [3#] .
       h4 wikiword link [wikiword] .
       . Paragraph.
         h5 .
