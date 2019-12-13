@@ -4,11 +4,20 @@ lists .
     | list[44:49]
   list insert .
     | list.insert(index, obj)
+  range() in Python 3 .
+    | range(3) [0,1,2]
+    | range(1,4) [0,1,2,3]
+    | range(0, 10, 2) [0,2,4,6,8]
+    | range(0, -3, -1) [0,-1,-2]
+  xrange() in Python 2 .
+    same as range in Python 3 .
+
 
 dicts .
   dict update .
     |{lng:py} my_dict = {'key': 'value'}
     |{lng:py} my_dict.update({'another_key': 'another_value'})  # Дополняем.}
+
 
 strings .
   string from list .
@@ -17,12 +26,14 @@ strings .
     | "Shepherd {} is {} years old.".format(shepherd, age)
     |print(stuff_in_string)| |Shepherd Mary is 32 years old.|
 
+
 def function .
   optional parameters .
   {def add_list(els, kode_param, value_param = "value" )} value_param = is optional
   if nead to go with it funct start like {add_list(..., ..., value_param = "value123" )}
   .|{def add_list(*value_params)| *value_params means like {value_params} in code will be a list of params of any length
   {for value_param in value_params}
+
 
 json .
   dict to json .
@@ -38,9 +49,11 @@ json .
     {with open(path_to_json, 'w') as json_file:}
       {json.dump(model_clas_dics, json_file, indent=4, sort_keys=True)}
 
+
 convert .
   convert num to string with fix character from point .
     |["{0:.2f}".format(float(l)) for l in list]|
+
 
 UnicodeEncodeError: ('unknown', '\x00', 0, 1, '') .
   | "=СУММ(1:1)".encode('utf-8')
