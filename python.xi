@@ -11,6 +11,8 @@ lists .
     | range(0, -3, -1) [0,-1,-2]
   xrange() in Python 2 .
     same as range in Python 3 .
+  list1.extend(list2) .
+    add list2 to end of list1 .
 
 
 dicts .
@@ -57,3 +59,14 @@ convert .
 
 UnicodeEncodeError: ('unknown', '\x00', 0, 1, '') .
   | "=СУММ(1:1)".encode('utf-8')
+
+
+EXCEL OLEDB .
+  Connect EXCEL sheet with OLEDB using connection string .
+  | connectionString = 'Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\\code\\git\\Classification-function\\Class_test_kod_for_search.xlsx; Extended Properties=Excel 12.0; HDR=YES'
+  | conn = OleDbConnection(connectionString)
+  | conn.Open()
+  | objDA = OleDbDataAdapter("select * from [Sheet1$]", conn)
+  | excelDataSet = DataSet()
+  | objDA.Fill(excelDataSet)
+  | excel_data = excelDataSet.Tables[0]
