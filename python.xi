@@ -70,3 +70,8 @@ EXCEL OLEDB .
   | excelDataSet = DataSet()
   | objDA.Fill(excelDataSet)
   | excel_data = excelDataSet.Tables[0]
+
+
+except to string .
+  | except Exception as e:
+    | s = str(e)
