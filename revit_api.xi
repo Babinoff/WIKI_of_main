@@ -7,3 +7,9 @@
         | doc_param_test.append(iterator.Key.Name) 
       | else:
         | doc_param_test.append(iterator)
+get Element Name .
+  |{lng:ip,c#}Element.Name.GetValue(elementType)| this is a strong way, then simple .Name attribute fails
+  work for ElementType, Element, and all dependency classes of Element
+compare Category and BuiltInCategory .
+  |{dir(BuiltInCategory.OST_Parts)}
+  | test_element.Category.Id.IntegerValue == BuiltInCategory.OST_Parts.GetHashCode() 
