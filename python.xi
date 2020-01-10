@@ -13,7 +13,11 @@ lists .
     same as range in Python 3 .
   list1.extend(list2) .
     add list2 to end of list1 .
-
+  list sort by index .
+    | import operator
+    | sorted(test_list, key=operator.itemgetter(1))
+    | sorted(test_list, key=operator.itemgetter(1), reverse=True)
+    key=operator.itemgetter(1) - index of sorting key
 
 dicts .
   dict update .
