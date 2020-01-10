@@ -18,6 +18,16 @@ lists .
     | sorted(test_list, key=operator.itemgetter(1))
     | sorted(test_list, key=operator.itemgetter(1), reverse=True)
     key=operator.itemgetter(1) - index of sorting key
+  slice notation .
+    | [start:stop:step]
+    | a[::-1]    
+		# all items in the array, reversed
+    | a[1::-1]   
+		# the first two items, reversed
+    | a[:-3:-1]  
+		# the last two items, reversed
+    | a[-3::-1]  
+		# everything except the last two items, reversed
 
 dicts .
   dict update .
