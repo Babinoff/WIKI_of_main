@@ -4,7 +4,7 @@ xi test @
 Reference .
 . [1#] |http://habrahabr.ru/post/162885/#comment_5598039|.
 . [2#] |http://habrahabr.ru/post/162885/#comment_5598039|.
-Todo#[] .
+[Todo#] .
  |http://habrahabr.ru/post/162885/#comment_5598039|.
 
 . Todo .

@@ -1,4 +1,6 @@
-lists .
+[#lists] [#dicts] [#strings] [#def function] [#json]
+
+[lists#] .
   get Range of list .
     | list[start index:end index]
     | list[44:49]
@@ -29,13 +31,13 @@ lists .
     | a[-3::-1]  
 		# everything except the last two items, reversed
 
-dicts .
+[dicts#] .
   dict update .
     |{lng:py} my_dict = {'key': 'value'}
     |{lng:py} my_dict.update({'another_key': 'another_value'})  # Дополняем.}
 
 
-strings .
+[strings#] .
   string from list .
     | (";").join([string,string,string])
   insert in string .
@@ -43,7 +45,7 @@ strings .
     |print(stuff_in_string)| |Shepherd Mary is 32 years old.|
 
 
-def function .
+[def function#] .
   optional parameters .
   {def add_list(els, kode_param, value_param = "value" )} value_param = is optional
   if nead to go with it funct start like {add_list(..., ..., value_param = "value123" )}
@@ -51,7 +53,7 @@ def function .
   {for value_param in value_params}
 
 
-json .
+[json#] .
   dict to json .
   {import json}
     |{x = { "name": "John","age": 30,}| .
@@ -66,7 +68,7 @@ json .
       {json.dump(model_clas_dics, json_file, indent=4, sort_keys=True)}
 
 
-convert .
+[convert#] .
   convert num to string with fix character from point .
     |["{0:.2f}".format(float(l)) for l in list]|
 
