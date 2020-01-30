@@ -15,5 +15,12 @@
 | git remote -v 
 Show remote url
 
-| git config --global credential.helper cache
-turn On credential
+| git remote set-url origin new.git.url/here
+change remote origin
+
+| git config --global credential.helper
+Show credential file
+
+| git config credential.helper store
+save new login pass after push
+
