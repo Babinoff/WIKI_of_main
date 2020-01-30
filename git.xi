@@ -11,3 +11,9 @@
 
 | ssh -T git@github.com
 | ssh-add C:\\Users\\a.babinov\\.ssh\\id_rsa.pub
+
+| git remote -v 
+Show remote url
+
+| git config --global credential.helper cache
+turn On credential

@@ -57,7 +57,7 @@
   dict to json .
   {import json}
     |{x = { "name": "John","age": 30,}| .
-      |y = json.dumps(x, sort_keys=True, indent=4))| dict to json string
+      |y = json.dumps(x, sort_keys=True, indent=4)| dict to json string
         {indent=4} make lines
         {sort_keys=True} objects exact in same order
   json to dict .
