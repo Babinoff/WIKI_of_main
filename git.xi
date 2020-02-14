@@ -24,3 +24,5 @@ Show credential file
 | git config credential.helper store
 save new login pass after push
 
+| git config --global | git config --global credential.helper cache | git config --global credential.helper manager | git config --global credential.helper wincred # obsolete
+what of whis turn ON
