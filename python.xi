@@ -89,5 +89,11 @@ EXCEL OLEDB .
 
 
 except to string .
-  | except Exception as e:
+  varian 1 .
+    | except Exception as e:
     | s = str(e)
+  varian 2 .
+	|import sys|
+	|sys.path.append("C:\\Program Files (x86)\\IronPython 2.7\\Lib")|
+	|import traceback|
+	|traceback.format_exc()|
