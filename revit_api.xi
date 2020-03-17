@@ -30,3 +30,8 @@ c# run transaction in not command class .
 		need create subclass of Execute
   |    public void Execute(UIApplication app) { function_with_transaction() }
 			in that class you can run you function and create transaction inside it
+  in Command we need create parameter .
+  | public static ExternalEvent external_event_parameter_creator
+  | external_event_parameter_creator = ExternalEvent.Create(new ParameterCreator());
+  and in the mainViewModel or else main class we run by Raise .
+  | Command.external_event_parameter_creator.Raise();
