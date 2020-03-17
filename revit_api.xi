@@ -23,3 +23,10 @@ custom rule for WherePasses filter .
   | rule = FilterStringRule(provider, evaluator, "Стены", False);
   | filter = ElementParameterFilter(rule);
   | elems = FilteredElementCollector(doc).OfClass(DirectShape).WherePasses(filter)
+
+c# run transaction in not command class .
+	need create class with api interface 
+  | class ParameterCreator : IExternalEventHandler
+		need create subclass of Execute
+  |    public void Execute(UIApplication app) { function_with_transaction() }
+			in that class you can run you function and create transaction inside it
