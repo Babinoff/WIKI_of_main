@@ -12,3 +12,10 @@ List<string> to single string .
 СomboBox on WPF if Sorce is Dictionary .
   |DisplayMemberPath="Key"|
   |SelectedValuePath="Value"|
+
+List compreheshens lol .
+  | list_of_foo.ForEach(bar => all_foo_Id.Add(bar.Id));
+
+List of string with values .
+  | List<string> mylist = new List<string>(new string[] { "element1", "element2", "element3" });
+
