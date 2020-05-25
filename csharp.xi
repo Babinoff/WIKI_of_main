@@ -19,3 +19,19 @@ List compreheshens lol .
 List of string with values .
   | List<string> mylist = new List<string>(new string[] { "element1", "element2", "element3" });
 
+List sorted list by property .
+  | IEnumerable<Face> sorted_all_faces = all_faces.OrderBy(face => face.Area);
+
+switch case .
+  | switch (caseSwitch)
+  |   {
+  |        case 1:
+  |            Console.WriteLine("Case 1");
+  |            break;
+  |        case 2:
+  |            Console.WriteLine("Case 2");
+  |            break;
+  |        default:
+  |            Console.WriteLine("Default case");
+  |            break;
+  |    }
