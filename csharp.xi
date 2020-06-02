@@ -35,3 +35,15 @@ switch case .
   |            Console.WriteLine("Default case");
   |            break;
   |    }
+
+test if object can cast to type .
+  | const something = "test"
+  | var myObject = something as String; 
+  | if (myObject != null)
+  | {
+  | // successfully cast .
+  | }
+  | else
+  | {
+  |   // cast failed .
+  | }
