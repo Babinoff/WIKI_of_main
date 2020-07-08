@@ -35,3 +35,8 @@ c# run transaction in not command class .
   | external_event_parameter_creator = ExternalEvent.Create(new ParameterCreator());
   and in the mainViewModel or else main class we run by Raise .
   | Command.external_event_parameter_creator.Raise();
+
+create a vector from a curve .
+	|XYZ pstart = Curve.GetEndPoint(0)| start XYZ point
+	|XYZ pend = Curve.GetEndPoint(1)| end XYZ point
+	|XYZ v = (pend - pstart).Normalize()| normalised vector pointing along curve
