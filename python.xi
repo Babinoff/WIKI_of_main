@@ -1,5 +1,10 @@
 [#lists] [#dicts] [#strings] [#def function] [#json]
 
+[cast_to_type#] .
+  import clr .
+   | convertedObject = clr.Convert(someObject, someType)
+
+
 [lists#] .
   get Range of list .
     | list[start index:end index]
