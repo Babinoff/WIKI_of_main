@@ -10,3 +10,12 @@ object has property .
   | 	{
   | 		console.log("we a found a 'foo' property in som object") .
   | 	};
+string contains .
+  | 'Синий кит'.includes('синий'); // вернёт false
+js create property by value .
+  | myObj[a] = b
+js test object has key .
+  | if ('key' in myObj)
+		Be careful! The in operator matches all object keys, including those in the object's prototype chain
+  | myObj.hasOwnProperty('key')
+		will only return true if key is available on myObj directly:
