@@ -1,3 +1,6 @@
+Convert double to int .
+  | Convert.ToInt32(double)
+
 Read Write Lines .
   |File.WriteAllLines(path, string[])|
   |File.ReadAllLines(path, string[])|
