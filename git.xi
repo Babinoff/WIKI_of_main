@@ -7,6 +7,8 @@
 	|Copy the contents--exactly as it appears, with no extra spaces or lines--of id_rsa.pub and paste it into GitHub and/or BitBucket under the Account Settings > SSH Keys. NOTE: I like to give the SSH key a descriptive name, usually with the name of the workstation I'm on along with the date.|
 	Now that you've added your public key to Github and/or BitBucket, try to git push again and see if it works. It should!
 
+	[~/.ssh/known_hosts]
+	https://docs.gitlab.com/ee/ci/ssh_keys/ - Verifying the SSH host keys
   https://gist.github.com/adamjohnson/5682757#gistcomment-1787111 .
 
 | ssh -T git@github.com
