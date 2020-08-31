@@ -19,3 +19,5 @@ js test object has key .
 		Be careful! The in operator matches all object keys, including those in the object's prototype chain
   | myObj.hasOwnProperty('key')
 		will only return true if key is available on myObj directly:
+js is variabl object .
+  | typeof yourVariable === 'object' && yourVariable !== null
