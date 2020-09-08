@@ -31,3 +31,12 @@ what of whis turn ON
 
 go ro comit 
 | git checkout <comit hash>
+
+del branch 
+	localy .
+| 	git branch -d <branch>
+ 	or -D to force 
+	remote .
+| 	git push <remote> --delete <branch> 
+	<remote> recently is orign
+	
