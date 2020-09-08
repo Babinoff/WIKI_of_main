@@ -28,3 +28,6 @@ save new login pass after push
 
 | git config --global | git config --global credential.helper cache | git config --global credential.helper manager | git config --global credential.helper wincred # obsolete
 what of whis turn ON
+
+go ro comit 
+| git checkout <comit hash>
