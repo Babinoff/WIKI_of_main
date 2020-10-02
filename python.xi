@@ -104,3 +104,7 @@ except to string .
 	|sys.path.append("C:\\Program Files (x86)\\IronPython 2.7\\Lib")|
 	|import traceback|
 	|traceback.format_exc()|
+
+
+object has atribut (propertis) .
+  | hasattr(elem, 'CurtainGrid')
