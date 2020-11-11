@@ -14,7 +14,8 @@ get Element Name .
 
 compare Category and BuiltInCategory .
   |{dir(BuiltInCategory.OST_Parts)}
-  | test_element.Category.Id.IntegerValue == BuiltInCategory.OST_Parts.GetHashCode() 
+  | test_element.Category.Id.IntegerValue == BuiltInCategory.OST_Parts.GetHashCode()
+  | if element.Category.Id.IntegerValue == int(BuiltInCategory.OST_CATEGORY):
 
 custom rule for WherePasses filter .
   | param = UnwrapElement(IN[0]).LookupParameter("АБН_elem_link_category")
