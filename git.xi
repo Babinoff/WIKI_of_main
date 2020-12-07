@@ -40,3 +40,6 @@ del branch
 | 	git push <remote> --delete <branch> 
 	<remote> recently is orign
 	
+
+merge start branch, allow pull different
+|	pull --allow-unrelated-histories|
