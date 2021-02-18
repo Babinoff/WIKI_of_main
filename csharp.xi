@@ -44,9 +44,15 @@ test if object can cast to type .
   | var myObject = something as String; 
   | if (myObject != null)
   | {
-  | // successfully cast .
+  |   // successfully cast .
   | }
   | else
   | {
   |   // cast failed .
   | }
+
+Conver IEnumerable to List .
+  | ConnectorSet cnn_set = cnn_manager.Connectors;
+  | List<Connector> asList = cnn_set.Cast<Connector>().ToList();
+  | IEnumerable myEnumerable = GetUser();
+  | List<User> myList = myEnumerable.Cast<User>().ToList();

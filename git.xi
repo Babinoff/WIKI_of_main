@@ -43,3 +43,6 @@ del branch
 
 merge start branch, allow pull different
 |	pull --allow-unrelated-histories|
+
+git init.
+git remote add origin git@github.com:username/new_repo
