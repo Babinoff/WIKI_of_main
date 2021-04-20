@@ -56,3 +56,11 @@ Conver IEnumerable to List .
   | List<Connector> asList = cnn_set.Cast<Connector>().ToList();
   | IEnumerable myEnumerable = GetUser();
   | List<User> myList = myEnumerable.Cast<User>().ToList();
+
+catch (Exception exception) .
+  |	{
+  |		var st = new StackTrace(exception, true);
+  |		var frame = st.GetFrame(0);
+  |		var line = frame.GetFileLineNumber();
+  |		//MessageBox.Show($"__Entitlement Error__: {e.Message} line: {line}");
+  |	}
