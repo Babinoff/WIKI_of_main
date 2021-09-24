@@ -159,10 +159,7 @@ if (this.commonTime - this.idlingTime > 400)
 } } );
 
 
-use('userstatistics');
-db.sessions1147.find( { $where: function() {
-	return (this.centralPath.includes('id-1147'))
-} } ).count()
+
 
 use('userstatistics');
 db.sessions1147.find( { $where: function() {
@@ -183,7 +180,7 @@ db.sessions1147.find( { $where: function() {
 
 //query bar filter:
 { $where : function() {
-	return (this.centralPath.includes('id-1147'))
+	return (this.centralPath.includes('id-1116'))
 } }
 
 use('userstatistics');
@@ -197,11 +194,17 @@ db.analyzing.find().forEach(
 );
 
 use('userstatistics');
+db.sessions.find( { $where: function() {
+	return (this.centralPath.includes('id-1116'))
+} } ).count()
+
+use('userstatistics');
 db.sessions.find().forEach(
     function (x) {
         value = x.centralPath;
-        if(value.includes('id-1091')){
-          db.sessions1091.insertOne(x)
+        if(value.includes('id-1116')){
+          db.sessions1116V1.insertOne(x)
+		  db.sessions.deleteOne({ "_id" : x._id })
         }
     }
 );
@@ -258,7 +261,7 @@ db.sessions1147.find().forEach(
 		if (test != null){
 			test.forEach(function (element)
 			{
-				if (element.nameCategory == "Воздуховоды")
+				if (element.nameCategory == "Окна")
 					return element.nameCategory
 			})
 		}
@@ -267,7 +270,7 @@ db.sessions1147.find().forEach(
 	use('userstatistics');
 	test_elements = []
 	users = new Set();
-	category_name = "Воздухораспределители"
+	category_name = "Окна"
 	all_time = 0
 	elements_count = 0
 	db.sessions1147.find().forEach(
@@ -296,8 +299,8 @@ db.sessions1147.find().forEach(
 	use('userstatistics');
 	test_elements = []
 	users = new Set();
-	category_name = "Кабельные лотки"
-	departament_name = "Отдел инновационных разработок"
+	category_name = "Несущие колонны"
+	departament_name = "Конструкторский отдел"
 	all_time = 0
 	elements_count = 0
 	db.sessions1147.find({ departament: departament_name }).forEach(
@@ -353,3 +356,14 @@ db.sessions1147.find().forEach(
 		console.log({elements_count: elements_count})
 		db.analyzing1091.insertOne({departament_name: departament_name, category_name: category_name, users: Array.from(users), all_time: all_time, elements_count: elements_count})
 	})
+
+
+use('userstatistics');
+db.nikatimes.find().forEach(
+    function (x) {
+        value = x.commonTime;
+        if(value > 1000){
+          db.nikatimes.deleteOne({ "_id" : x._id })
+        }
+    }
+);
