@@ -359,11 +359,14 @@ db.sessions1147.find().forEach(
 
 
 use('userstatistics');
+elements_count = 0
 db.nikatimes.find().forEach(
     function (x) {
         value = x.commonTime;
-        if(value > 1000){
-          db.nikatimes.deleteOne({ "_id" : x._id })
+        if(value > 1000 || value < 100 ){
+			db.nikatimes.deleteOne({ "_id" : x._id })
+			elements_count += 1
         }
     }
 );
+console.log({elements_count: elements_count})
