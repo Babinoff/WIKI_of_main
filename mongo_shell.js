@@ -370,3 +370,176 @@ db.nikatimes.find().forEach(
     }
 );
 console.log({elements_count: elements_count})
+
+use('userstatistics');
+db.characteristicsusers.find( { $where: function() {
+	return this.mail
+} } );
+
+use('userstatistics');
+elements_demo = []
+db.characteristicsusers.find().forEach(
+    function (x) {
+        usermail = x.mail;
+		name_and = usermail.split("@")[0]
+		new_mail = name_and.replace(name_and.split(".")[2], "")
+		elements_demo.push({mail: usermail, new_mail:new_mail})
+    }
+);
+console.log({elements_demo: elements_demo})
+
+
+
+
+//characteristicsusers SCRIPTS
+//===========================================================
+use('userstatistics');
+elements_demo = []
+db.characteristicsusers.find().forEach(
+    function (x) {
+        usermail = x.mail;
+		name_and = usermail.split("@")[0]
+		new_mail = name_and.replace(name_and.split(".")[2], "")
+		elements_demo.push({mail: usermail, new_mail:new_mail})
+    }
+);
+elements_demo.forEach(function (x) {
+	db.characteristicsusers.updateOne(
+		{ "mail" : x.mail },
+		{ $set: { "mail" : x.new_mail } }
+	);
+})
+console.log({elements_demo: elements_demo})
+//===========================================================
+//===========================================================
+use('userstatistics');
+elements_demo = []
+db.characteristicsusers.find().forEach(
+    function (x) {
+        telephoneNumber = x.workingTelephoneNumber;
+		elements_demo.push({workingTelephoneNumber: telephoneNumber, new_telephoneNumber:telephoneNumber.substring(0, 2)})
+    }
+);
+elements_demo.forEach(function (x) {
+	db.characteristicsusers.updateOne(
+		{ "workingTelephoneNumber" : x.workingTelephoneNumber },
+		{ $set: { "workingTelephoneNumber" : x.new_telephoneNumber } }
+	);
+})
+console.log({elements_demo: elements_demo})
+//===========================================================
+//===========================================================
+use('userstatistics');
+elements_demo = []
+db.characteristicsusers.find().forEach(
+    function (x) {
+        telephoneNumber = x.mobileTelephoneNumber;
+		elements_demo.push({mobileTelephoneNumber: telephoneNumber, new_mobileTelephoneNumber:telephoneNumber.substring(0, 2)})
+    }
+);
+elements_demo.forEach(function (x) {
+	db.characteristicsusers.updateOne(
+		{ "mobileTelephoneNumber" : x.mobileTelephoneNumber },
+		{ $set: { "mobileTelephoneNumber" : x.new_mobileTelephoneNumber } }
+	);
+})
+console.log({elements_demo: elements_demo})
+//===========================================================
+//===========================================================
+use('userstatistics');
+user_names_new = []
+count = 1
+db.characteristicsusers.find().forEach(
+    function (x) {
+        username = x.name;
+		user_names_new.push({name: username, new_username:username.split(" ")[1]+"_"+count})
+		count++;
+    }
+);
+user_names_new.forEach(function (x) {
+	db.characteristicsusers.updateOne(
+		{ "name" : x.name },
+		{ $set: { "name" : x.new_username } }
+	);
+})
+console.log({user_names_new: user_names_new})
+//===========================================================
+//===========================================================
+//сохдание ключей для переименования имен в другой базе
+user_names_new.forEach(function (x) {
+	db.new_names.insertOne(x)
+})
+//===========================================================
+//===========================================================
+use('userstatistics');
+elements_demo = []
+db.characteristicsusers.find().forEach(
+    function (x) {
+        username = x.name;
+		if (username == null){
+			elements_demo.push({mail: x.mail, new_username: "Ника", username: username})
+		}
+    }
+);
+elements_demo.forEach(function (x) {
+	db.characteristicsusers.updateOne(
+		{ "mail" : x.mail },
+		{ $set: { "name" : x.new_username } }
+	);
+})
+console.log({elements_demo: elements_demo})
+//===========================================================
+//===========================================================
+use('userstatistics');
+elements_demo = []
+db.characteristicsusers.find().forEach(
+    function (x) {
+        unic_user = x.dateProfileChanged;
+		db.characteristicsusers.updateOne(
+			{ "dateProfileChanged" : unic_user },
+			{ $set: { "imageSrc" : "assets/img/empty.png" } }
+		);
+		elements_demo.push(unic_user)
+    }
+);
+console.log({elements_demo: elements_demo})
+//===========================================================
+
+
+//скрипты сесиий 
+use('userstatistics');
+elements_demo = []
+count = 1
+new_generated_names = {}
+db.sessions.find().forEach(
+    function (x) {
+        unic_user = x.userAdName;
+		name_key = db.new_names.findOne({name:unic_user})
+		if (name_key == null){
+			find_new_name = new_generated_names[unic_user]
+			if (find_new_name == null){
+				generated_name = "new_user_"+count
+				db.sessions.updateOne(
+					{ "userAdName" : unic_user },
+					{ $set: { "userAdName" : generated_name } }
+				);
+				new_generated_names[unic_user] = generated_name;
+			}
+			else {
+				db.sessions.updateOne(
+					{ "userAdName" : unic_user },
+					{ $set: { "userAdName" : find_new_name } }
+				);
+			}
+			count++
+		}
+		else{
+			db.sessions.updateOne(
+				{ "userAdName" : unic_user },
+				{ $set: { "userAdName" : name_key.new_username } }
+			);
+		}
+		elements_demo.push(unic_user, name_key)
+    }
+);
+console.log({elements_demo: elements_demo})
