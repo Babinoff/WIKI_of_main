@@ -399,7 +399,7 @@ db.characteristicsusers.find().forEach(
     function (x) {
         usermail = x.mail;
 		name_and = usermail.split("@")[0]
-		new_mail = name_and.replace(name_and.split(".")[2], "")
+		new_mail = name_and.replace(name_and.split(".")[2], "") + "@project.com"
 		elements_demo.push({mail: usermail, new_mail:new_mail})
     }
 );
@@ -448,12 +448,11 @@ console.log({elements_demo: elements_demo})
 //===========================================================
 use('userstatistics');
 user_names_new = []
-count = 1
 db.characteristicsusers.find().forEach(
     function (x) {
         username = x.name;
-		user_names_new.push({name: username, new_username:username.split(" ")[1]+"_"+count})
-		count++;
+		split_name = username.split(" ")
+		user_names_new.push({name: username, new_username: split_name[1] + "_" + split_name[0][0]})
     }
 );
 user_names_new.forEach(function (x) {
@@ -497,7 +496,7 @@ db.characteristicsusers.find().forEach(
         unic_user = x.dateProfileChanged;
 		db.characteristicsusers.updateOne(
 			{ "dateProfileChanged" : unic_user },
-			{ $set: { "imageSrc" : "assets/img/empty.png" } }
+			{ $set: { "imageSrc" : `assets/img/${x.name}.jpg` } }
 		);
 		elements_demo.push(unic_user)
     }
@@ -507,39 +506,76 @@ console.log({elements_demo: elements_demo})
 
 
 //скрипты сесиий 
+
+
 use('userstatistics');
 elements_demo = []
 count = 1
 new_generated_names = {}
 db.sessions.find().forEach(
-    function (x) {
-        unic_user = x.userAdName;
-		name_key = db.new_names.findOne({name:unic_user})
-		if (name_key == null){
-			find_new_name = new_generated_names[unic_user]
-			if (find_new_name == null){
-				generated_name = "new_user_"+count
-				db.sessions.updateOne(
-					{ "userAdName" : unic_user },
-					{ $set: { "userAdName" : generated_name } }
-				);
-				new_generated_names[unic_user] = generated_name;
-			}
-			else {
-				db.sessions.updateOne(
-					{ "userAdName" : unic_user },
-					{ $set: { "userAdName" : find_new_name } }
-				);
-			}
-			count++
+    function (session) {
+		c_path = session.centralPath;
+		if (!c_path.includes("rsn://")){
+			db.sessions.deleteOne({centralPath:c_path}, true)
 		}
 		else{
-			db.sessions.updateOne(
-				{ "userAdName" : unic_user },
-				{ $set: { "userAdName" : name_key.new_username } }
-			);
+			unic_user = session.userAdName;
+			name_key = db.new_names.findOne({name:unic_user})
+			if (name_key == null){
+				find_new_name = new_generated_names[unic_user]
+				if (find_new_name == null){
+					generated_name = "new_user_"+count
+					db.sessions.updateOne(
+						{ "userAdName" : unic_user },
+						{ $set: { "userAdName" : generated_name } }
+					);
+					new_generated_names[unic_user] = generated_name;
+				}
+				else {
+					db.sessions.updateOne(
+						{ "userAdName" : unic_user },
+						{ $set: { "userAdName" : find_new_name } }
+					);
+				}
+				count++
+			}
+			else{
+				db.sessions.updateOne(
+					{ "userAdName" : unic_user },
+					{ $set: { "userAdName" : name_key.new_username } }
+				);
+			}
+			if (!c_path.includes("rsn://")){
+				db.sessions.deleteOne({centralPath:c_path}, true)
+			}
+			else{
+				project_ids.forEach(function (x) {
+					split_proj = x.split("|r|");
+					if (c_path.includes(split_proj[1].toLowerCase())){
+						new_path = c_path.replace(split_proj[1].toLowerCase(), "id-" + split_proj[0] + "__")
+						db.sessions.updateOne({centralPath:c_path}, { $set: { "centralPath" : new_path }})
+					}
+				})
+			}
+			elements_demo.push(unic_user, name_key)
 		}
-		elements_demo.push(unic_user, name_key)
     }
 );
-console.log({elements_demo: elements_demo})
+
+// db.sessions.find().forEach(
+//     function (session) {
+// 		c_path = session.centralPath;
+// 		if (!c_path.includes("rsn://")){
+// 			db.sessions.deleteOne({centralPath:c_path}, true)
+// 		}
+// 		else{
+// 			project_ids.forEach(function (x) {
+// 				split_proj = x.split("|r|");
+// 				if (c_path.includes(split_proj[1].toLowerCase())){
+// 					new_path = "ID-" + c_path.replace(split_proj[1].toLowerCase(), split_proj[0])
+// 					db.sessions.updateOne({centralPath:c_path}, { $set: { "centralPath" : new_path }})
+// 				}
+// 			})
+// 		}
+//     }
+// );
