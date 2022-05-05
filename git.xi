@@ -11,11 +11,18 @@
 	https://docs.gitlab.com/ee/ci/ssh_keys/ - Verifying the SSH host keys
   https://gist.github.com/adamjohnson/5682757#gistcomment-1787111 .
 
-| ssh -T git@github.com
+| ssh -T git@github.com 
+| ssh -T git@wog-git-01.in-delo.com
+run agent 
+| ssh-agent -s
 | ssh-add C:\\Users\\a.babinov\\.ssh\\id_rsa.pub
 
 | git remote -v 
 Show remote url
+
+| git init
+| git remote add origin git@github.com:group/new_repo
+| git remote add origin git@wog-git-01.in-delo.com:in-delo/production2.0.git
 
 | git remote set-url origin new.git.url/here
 change remote origin
@@ -29,7 +36,7 @@ save new login pass after push
 | git config --global | git config --global credential.helper cache | git config --global credential.helper manager | git config --global credential.helper wincred # obsolete
 what of whis turn ON
 
-go ro comit 
+go to comit 
 | git checkout <comit hash>
 
 del branch 
@@ -40,9 +47,12 @@ del branch
 | 	git push <remote> --delete <branch> 
 	<remote> recently is orign
 	
-
 merge start branch, allow pull different
 |	pull --allow-unrelated-histories|
 
-git init.
-git remote add origin git@github.com:username/new_repo
+This will create three separate revert commits:
+|	git revert a867b4af 25eee4ca 0766c053|
+
+It also takes ranges. This will revert the last two commits:
+|	git revert HEAD~2..HEAD|
+

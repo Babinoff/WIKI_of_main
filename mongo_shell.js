@@ -496,8 +496,25 @@ db.characteristicsusers.find().forEach(
         unic_user = x.dateProfileChanged;
 		db.characteristicsusers.updateOne(
 			{ "dateProfileChanged" : unic_user },
-			{ $set: { "imageSrc" : `assets/img/${x.name}.jpg` } }
+			{ $set: { "imageSrc" : `uploads/${x.name}.jpg` } }
 		);
+		elements_demo.push(unic_user)
+    }
+);
+console.log({elements_demo: elements_demo})
+//===========================================================
+//===========================================================
+use('userstatistics');
+elements_demo = []
+db.characteristicsusers.find().forEach(
+    function (x) {
+        unic_user = x.dateProfileChanged;
+		if (x.imageSrc.includes("undefined")){
+			db.characteristicsusers.updateOne(
+				{ "dateProfileChanged" : unic_user },
+				{ $set: { "imageSrc" : `uploads/default-user-image.png` } }
+			);
+		}
 		elements_demo.push(unic_user)
     }
 );
@@ -506,8 +523,7 @@ console.log({elements_demo: elements_demo})
 
 
 //скрипты сесиий 
-
-
+//===========================================================
 use('userstatistics');
 elements_demo = []
 count = 1
@@ -561,21 +577,350 @@ db.sessions.find().forEach(
 		}
     }
 );
+//===========================================================
 
-// db.sessions.find().forEach(
+
+//скрипты никатайм 
+//===========================================================
+// use('userstatistics');
+// count = 1
+// new_generated_names = {}
+// test = {}
+// db.nikatimes.find().forEach(
 //     function (session) {
-// 		c_path = session.centralPath;
-// 		if (!c_path.includes("rsn://")){
-// 			db.sessions.deleteOne({centralPath:c_path}, true)
+// 		unic_user = session.userAdName;
+// 		name_key = db.new_names.findOne({name:unic_user})
+// 		test[unic_user] = [name_key]
+// 		if (name_key == null){
+// 			find_new_name = new_generated_names[unic_user]
+// 			if (find_new_name == null){
+// 				generated_name = "new_user_"+count
+// 				db.nikatimes.updateOne(
+// 					{ "userAdName" : unic_user },
+// 					{ $set: { "userAdName" : generated_name } }
+// 				);
+// 				new_generated_names[unic_user] = generated_name;
+// 			}
+// 			else {
+// 				db.nikatimes.updateOne(
+// 					{ "userAdName" : unic_user },
+// 					{ $set: { "userAdName" : find_new_name } }
+// 				);
+// 			}
+// 			count++
 // 		}
 // 		else{
-// 			project_ids.forEach(function (x) {
-// 				split_proj = x.split("|r|");
-// 				if (c_path.includes(split_proj[1].toLowerCase())){
-// 					new_path = "ID-" + c_path.replace(split_proj[1].toLowerCase(), split_proj[0])
-// 					db.sessions.updateOne({centralPath:c_path}, { $set: { "centralPath" : new_path }})
-// 				}
-// 			})
+// 			db.nikatimes.updateOne(
+// 				{ "userAdName" : unic_user },
+// 				{ $set: { "userAdName" : name_key.new_username } }
+// 			);
 // 		}
 //     }
 // );
+// console.log({test: test})
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = []
+db.nikatimes.find().forEach(
+    function (session) {
+		unic_user = session.userAdName;
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			sub_sessions.forEach(function (sub_ses) {
+				doc_titl = sub_ses.documentTitle
+				if (doc_titl != null && doc_titl.includes("1116")){
+					test.push(doc_titl)
+				}
+			})
+		}
+    }
+);
+console.log({test: test})
+
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = []
+db.nikatimes.find().forEach(
+    function (session) {
+		unic_id = session._id
+		unic_user = session.userAdName;
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			sub_sessions.forEach(function (sub_ses) {
+				doc_titl = sub_ses.documentTitle
+				if (doc_titl != null && doc_titl.includes("1116")){
+					test.push(doc_titl)
+					db.nikatimes.remove({_id:unic_id})
+					return
+				}
+			})
+		}
+    }
+);
+console.log({test: test})
+//===========================================================
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = []
+db.nikatimes.find().forEach(
+    function (session) {
+		object_id = session._id
+		unic_user = session.userAdName;
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			test.push({sub_sessions_count:sub_sessions.length})
+			sub_sessions_new_list = []
+			sub_sessions.forEach(function (sub_ses) {
+				fix_sub_session = sub_ses
+				doc_titl = fix_sub_session.programName
+				if (doc_titl != null && doc_titl.includes("C:\\")){
+					new_titul = doc_titl.split("\\")[doc_titl.split("\\").length - 1]
+					fix_sub_session.programName = new_titul
+					test.push(fix_sub_session)
+				}
+				sub_sessions_new_list.push(fix_sub_session)
+			})
+			test.push({sub_sessions_count:sub_sessions.length})
+			db.nikatimes.updateOne(
+				{ "_id" : object_id },
+				{ $set: { "projectSessions" : sub_sessions_new_list } }
+			);
+		}
+    }
+);
+console.log({test: test})
+//===========================================================
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = []
+db.nikatimes.find().forEach(
+    function (session) {
+		object_id = session._id
+		unic_user = session.userAdName;
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			test.push({sub_sessions_count:sub_sessions.length})
+			sub_sessions_new_list = []
+			sub_sessions.forEach(function (sub_ses) {
+				fix_sub_session = sub_ses
+				doc_titl = fix_sub_session.documentTitle
+				if (doc_titl != null && doc_titl.includes("@in-delo.com")){ //@we-on.com
+					new_titul = "mail" + doc_titl.split("@")[1]
+					fix_sub_session.documentTitle = new_titul
+					test.push(fix_sub_session)
+				}
+				sub_sessions_new_list.push(fix_sub_session)
+			})
+			test.push({sub_sessions_count:sub_sessions.length})
+			db.nikatimes.updateOne(
+				{ "_id" : object_id },
+				{ $set: { "projectSessions" : sub_sessions_new_list } }
+			);
+		}
+    }
+);
+console.log({test: test})
+//===========================================================
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = []
+db.nikatimes.find().forEach(
+    function (session) {
+		object_id = session._id
+		unic_user = session.userAdName;
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			test.push({sub_sessions_count:sub_sessions.length})
+			sub_sessions_new_list = []
+			sub_sessions.forEach(function (sub_ses) {
+				fix_sub_session = sub_ses
+				doc_titl = fix_sub_session.documentTitle
+				if (doc_titl != null && doc_titl.toLowerCase().includes("c:\\users\\")){
+					split_title = doc_titl.split("\\")
+					remove_from_title = split_title[0] + "\\" + split_title[1] + "\\" + split_title[2]
+					new_titul = doc_titl.split(remove_from_title)[1]
+					fix_sub_session.documentTitle = new_titul
+					test.push(fix_sub_session)
+				}
+				sub_sessions_new_list.push(fix_sub_session)
+			})
+			test.push({sub_sessions_count:sub_sessions.length})
+			db.nikatimes.updateOne(
+				{ "_id" : object_id },
+				{ $set: { "projectSessions" : sub_sessions_new_list } }
+			);
+		}
+    }
+);
+console.log({test: test})
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = []
+db.nikatimes.find().forEach(
+    function (session) {
+		object_id = session._id
+		unic_user = session.userAdName;
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			test.push({sub_sessions_count:sub_sessions.length})
+			sub_sessions_new_list = []
+			sub_sessions.forEach(function (sub_ses) {
+				fix_sub_session = sub_ses
+				doc_titl = fix_sub_session.documentTitle
+				if (doc_titl != null && doc_titl.toLowerCase().includes("y:\\id.fls")){
+					split_title = doc_titl.split("\\")
+					remove_from_title = split_title[0] + "\\" + split_title[1] + "\\" + split_title[2] + "\\" + split_title[3]
+					new_titul = doc_titl.split(remove_from_title)[1]
+					fix_sub_session.documentTitle = new_titul
+					test.push(fix_sub_session)
+				}
+				sub_sessions_new_list.push(fix_sub_session)
+			})
+			test.push({sub_sessions_count:sub_sessions.length})
+			db.nikatimes.updateOne(
+				{ "_id" : object_id },
+				{ $set: { "projectSessions" : sub_sessions_new_list } }
+			);
+		}
+    }
+);
+console.log({test: test})
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = {}
+db.nikatimes.find().forEach(
+    function (session) {
+		unic_user = session.userAdName;
+		user_none = "new_user_34"
+		user_name = "Игорь_М"
+		if (unic_user.includes(user_none)){
+			user_obj = db.characteristicsusers.findOne({ "name" :user_name})
+			db.nikatimes.updateOne(
+				{ "userAdName" : unic_user },
+				{ $set: { "userAdName" : user_name, "departament" : user_obj.departament} }
+			);
+		}
+    }
+);
+console.log({test: test})
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = {}
+db.nikatimes.find().forEach(
+    function (session) {
+		unic_user = session.userAdName;
+		name_key = db.new_names.findOne({name:unic_user})
+		test[unic_user] = name_key
+		if (name_key != null){
+			db.nikatimes.updateOne(
+				{ "userAdName" : unic_user },
+				{ $set: { "userAdName" : name_key.new_username } }
+			);
+		}
+		else if (!unic_user.includes("_")){
+			new_genereted_name_list = unic_user.split(" ")
+			new_genereted_name = new_genereted_name_list[1] + "_" + new_genereted_name_list[0][0]
+			db.new_names.insertOne({name:unic_user, new_username: new_genereted_name})
+			db.nikatimes.updateOne(
+				{ "userAdName" : unic_user },
+				{ $set: { "userAdName" : new_genereted_name } }
+			);
+			test[unic_user] = new_genereted_name
+		}
+    }
+);
+console.log({test: test})
+
+
+
+//Починка базы
+//===========================================================
+use('userstatistics');
+count = 1
+new_generated_names = {}
+test = {}
+db.characteristicsusers.find().forEach(
+    function (user_char) {
+		user_name = user_char.name;
+		user_departament = user_char.departament;
+		db.sessions.updateMany(
+			{ "userAdName" : user_name },
+			{ $set: 
+				{ "departament" : user_departament } 
+			}
+		)
+    }
+);
+console.log({test: test})
+
+use('userstatistics');
+db.serverCmdLineOpts()
+
+//net stop MongoDB
+//net start MongoDB
+use('userstatistics');
+counter = 0
+list_of_ids = []
+db.nikatimes.find().forEach(
+    function (session) {
+		unic_id = session._id
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			sub_sessions.forEach(function (sub_ses) {
+				doc_titl = sub_ses.documentTitle
+				// test.push(doc_titl)
+				if (doc_titl == "procsName:System procs id:0"){
+					list_of_ids.push(unic_id)
+					// db.nikatimes.remove({_id:unic_id})
+					counter += 1;
+					return
+				}
+			})
+		}
+    }
+)
+// console.log(list_of_ids.toString())
+// console.log({"procs id:0 counter":counter})
+db.nikatimes.deleteMany({'_id': {'$in':list_of_ids}})
+// console.log(ids)
+
+use('userstatistics');
+counter = 0
+list_of_ids = []
+db.nikatimes.find().forEach(
+    function (session) {
+		unic_id = session._id
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			sub_sessions.forEach(function (sub_ses) {
+				doc_titl = sub_ses.documentTitle
+				programName = sub_ses.programName
+				// test.push(doc_titl)
+				if (doc_titl == '' || doc_titl == null){
+					list_of_ids.push(unic_id)
+					// db.nikatimes.remove({_id:unic_id})
+					counter += 1;
+					return
+				}
+			})
+		}
+    }
+)
+// console.log(list_of_ids.toString())
+console.log({"procs id:0 counter":counter})
+db.nikatimes.deleteMany({'_id': {'$in':list_of_ids}})
