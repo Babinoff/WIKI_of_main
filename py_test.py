@@ -128,4 +128,7 @@ if errorReport == None:
 else:
 	OUT = errorReport
 
-
+for shet in sheats:
+	for i in range(12):
+		param_name = "id_изм.{}Номер".format(i)
+		
