@@ -954,3 +954,33 @@ db.nikatimes.find().forEach(
 // console.log(list_of_ids.toString())
 console.log({"procs id:0 counter":counter})
 db.nikatimes.deleteMany({'_id': {'$in':list_of_ids}})
+
+
+use('userstatistics');
+counter = 0
+test_list = []
+db.nikatimes_28062022.find().forEach(
+	function (session) {
+		unic_id = session._id
+		sub_sessions = session.projectSessions
+		if (sub_sessions != null){
+			sub_sessions.forEach(function (sub_ses) {
+				doc_titl = sub_ses.documentTitle
+				programName = sub_ses.programName
+				if (doc_titl != null){
+					if (doc_titl.includes("StackTrace")){
+						let sub_ses_fix = sub_ses
+						sub_ses_fix.name = session.userAdName
+						db.nikatimes_errors.insertOne(sub_ses_fix)
+						test_list.push(doc_titl)
+						// db.nikatimes.remove({_id:unic_id})
+						counter += 1;
+						return
+					}
+				}
+			})
+		}
+	}
+)
+console.log({"counter": counter})
+console.log({"test_list": test_list})
